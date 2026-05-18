@@ -1,0 +1,26 @@
+# Build output
+build/
+
+# Generated Xcode project (produced by XcodeGen)
+PostureReminder.xcodeproj/
+
+# Xcode
+*.xcuserdata/
+*.xcworkspace/
+DerivedData/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# XcodeGen cache
+.xcodegen/
