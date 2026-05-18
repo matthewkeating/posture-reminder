@@ -11,15 +11,16 @@ struct AnimationView: View {
     let size: CGFloat
     let repeats: Bool
 
+    @Environment(\.colorScheme) private var colorScheme
     @State private var startDate = Date()
 
     private static let cycleDuration: TimeInterval = 4.13
 
-    private static let outerBlack = Color(
-        red: 0.035,
-        green: 0.035,
-        blue: 0.040
-    )
+    private var boarderAndStrokeColor: Color {
+        colorScheme == .dark
+            ? Color(red: 0.035, green: 0.035, blue: 0.040)
+            : Color(red: 0.965, green: 0.965, blue: 0.960)
+    }
 
     private static let innerGradient = Gradient(stops: [
         .init(color: Color(red: 0.96, green: 0.28, blue: 0.72), location: 0.00),
@@ -32,7 +33,7 @@ struct AnimationView: View {
         TimelineView(.animation) { timeline in
             animationCanvas(elapsed: timeline.date.timeIntervalSince(startDate))
         }
-        .frame(width: size * 1.12, height: size * 2.55)
+        .frame(width: size * 1.85, height: size * 2.55)
     }
 
     private func animationCanvas(elapsed: TimeInterval) -> Canvas<EmptyView> {
@@ -105,7 +106,8 @@ struct AnimationView: View {
 
         var outerContext = context
         outerContext.opacity = Double(overallOpacity)
-        outerContext.fill(outerPath, with: .color(Self.outerBlack))
+        outerContext.addFilter(.shadow(color: .black.opacity(0.4), radius: diameter * 0.12, x: 0, y: diameter * 0.05))
+        outerContext.fill(outerPath, with: .color(boarderAndStrokeColor))
 
         let gradientOpacity = ringReveal
         let innerCollapseScale = lerp(1.0, 0.0, easeInOutCubic(innerCollapse))
@@ -168,7 +170,7 @@ struct AnimationView: View {
 
             iconContext.stroke(
                 iconPath,
-                with: .color(Self.outerBlack),
+                with: .color(boarderAndStrokeColor),
                 style: StrokeStyle(
                     lineWidth: max(1.0, innerDiameter * 0.082),
                     lineCap: .round,
