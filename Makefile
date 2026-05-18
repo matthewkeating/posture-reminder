@@ -1,4 +1,4 @@
-.PHONY: generate build run clean
+.PHONY: generate build release run clean
 
 generate:
 	xcodegen generate
@@ -7,6 +7,13 @@ build: generate
 	xcodebuild -project PostureReminder.xcodeproj \
 		-scheme PostureReminder \
 		-configuration Debug \
+		SYMROOT=./build \
+		build
+
+release: generate
+	xcodebuild -project PostureReminder.xcodeproj \
+		-scheme PostureReminder \
+		-configuration Release \
 		SYMROOT=./build \
 		build
 

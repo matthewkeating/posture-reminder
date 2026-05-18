@@ -30,4 +30,12 @@ make generate
 make run
 ```
 
-This generates the project, builds a Debug binary under `./build/Debug/`, and opens the app. The `make build` target builds without launching, and `make clean` removes all build artifacts and the generated `.xcodeproj`.
+Available targets:
+
+| Target | Description |
+|---|---|
+| `make generate` | Generate the `.xcodeproj` from `project.yml` |
+| `make build` | Generate project and build a Debug binary under `./build/Debug/` |
+| `make run` | Build (Debug) and open the app |
+| `make release` | Generate project and build a Release binary under `./build/Release/` |
+| `make clean` | Remove all build artifacts and the generated `.xcodeproj` |
