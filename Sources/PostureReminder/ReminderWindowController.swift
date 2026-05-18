@@ -20,7 +20,7 @@ final class ReminderWindowController {
             panel.orderFrontRegardless()
         }
 
-        dismissTimer = Timer.scheduledTimer(withTimeInterval: 2.25, repeats: false) { [weak self] _ in
+        dismissTimer = Timer.scheduledTimer(withTimeInterval: 3.9, repeats: false) { [weak self] _ in
             self?.dismissAll()
         }
     }
@@ -32,7 +32,7 @@ final class ReminderWindowController {
     }
 
     private func makePanel(for screen: NSScreen) -> NSPanel {
-        // Full-screen panel so the 400-point upward slide isn't clipped.
+        // Full-screen panel so the animation isn't clipped at screen edges.
         let panel = NSPanel(
             contentRect: screen.frame,
             styleMask: [.borderless, .nonactivatingPanel],
