@@ -2,7 +2,7 @@
 
 A menu-bar-only macOS app that reminds you to sit or stand up straight. Every configurable number of minutes, a brief animated reminder appears on all connected displays. Adapts it's color scheme for light and dark modes.
 
-[[animation.gif]]
+![](animation.gif)
 
 ## Requirements
 
