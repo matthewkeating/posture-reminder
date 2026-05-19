@@ -1,15 +1,16 @@
 import AppKit
 import SwiftUI
 
-final class IntervalWindowController: NSObject {
+final class IntervalWindowController: NSObject, NSWindowDelegate {
     static let shared = IntervalWindowController()
 
     private var window: NSWindow?
 
     func show(appState: AppState) {
         if let w = window {
-            w.makeKeyAndOrderFront(nil)
+            w.center()
             NSApp.activate()
+            NSApp.runModal(for: w)
             return
         }
 
@@ -20,23 +21,23 @@ final class IntervalWindowController: NSObject {
         w.title = "Set Interval"
         w.styleMask = [.titled, .closable]
         w.isReleasedWhenClosed = false
-        w.level = .floating
+        w.delegate = self
+        w.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        w.standardWindowButton(.zoomButton)?.isHidden = true
+        w.center()
 
-        if let screen = NSScreen.main {
-            let size = NSSize(width: 270, height: 130)
-            let origin = NSPoint(
-                x: screen.visibleFrame.maxX - size.width - 16,
-                y: screen.visibleFrame.maxY - size.height - 8
-            )
-            w.setFrame(NSRect(origin: origin, size: size), display: true)
-        }
-
-        w.makeKeyAndOrderFront(nil)
-        NSApp.activate()
         window = w
+        NSApp.activate()
+        NSApp.runModal(for: w)
     }
 
     func hide() {
+        NSApp.stopModal()
         window?.orderOut(nil)
+    }
+
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        hide()
+        return false
     }
 }

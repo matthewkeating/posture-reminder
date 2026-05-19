@@ -5,14 +5,18 @@ struct IntervalPickerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Reminder interval")
-                .font(.headline)
-
-            Stepper(
-                value: $appState.interval,
-                in: 1...60
-            ) {
-                Text("\(appState.interval) minute\(appState.interval == 1 ? "" : "s")")
+            HStack {
+                Text("Reminder interval (minutes):")
+                    .font(.headline)
+                Spacer()
+                HStack(spacing: 4) {
+                    TextField("", value: $appState.interval, format: .number)
+                        .frame(width: 35)
+                        .multilineTextAlignment(.trailing)
+                        .onSubmit {
+                            appState.interval = min(max(appState.interval, 1), 60)
+                        }
+                }
             }
 
             HStack {
@@ -24,6 +28,6 @@ struct IntervalPickerView: View {
             }
         }
         .padding()
-        .frame(width: 240)
+        .frame(width: 270)
     }
 }
