@@ -11,10 +11,11 @@ struct IntervalPickerView: View {
                 Spacer()
                 HStack(spacing: 4) {
                     TextField("", value: $appState.interval, format: .number)
-                        .frame(width: 35)
+                        .frame(width: 44)
                         .multilineTextAlignment(.trailing)
-                        .onSubmit {
-                            appState.interval = min(max(appState.interval, 1), 60)
+                        .onChange(of: appState.interval) { newValue in
+                            let clamped = min(max(newValue, 1), 480)
+                            if clamped != newValue { appState.interval = clamped }
                         }
                 }
             }
