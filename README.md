@@ -1,6 +1,6 @@
 # posture-reminder
 
-A menu-bar-only macOS app that reminds you to sit or stand up straight. Every configurable number of minutes, a brief animated reminder appears on all connected displays. Adapts it's color scheme for light and dark modes.
+A 100% vibe-coded menu-bar-only macOS app that reminds you to sit or stand up straight. Every configurable number of minutes, a brief animated reminder appears on all connected displays. Reminders are automatically skipped while a Focus mode is active, delaying the timer until Focus is turned off. Adapts it's color scheme for light and dark modes.
 
 ![](animation.gif)
 

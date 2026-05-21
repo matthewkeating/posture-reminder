@@ -22,8 +22,30 @@ final class AppState: ObservableObject {
     }
 
     private func fireReminder() {
+        if isFocusModeActive() {
+            startTimer()
+            return
+        }
         ReminderWindowController.shared.showReminder()
         startTimer()
+    }
+
+    private func isFocusModeActive() -> Bool {
+        let assertionsURL = FileManager.default
+            .homeDirectoryForCurrentUser
+            .appendingPathComponent("Library/DoNotDisturb/DB/Assertions.json")
+
+        guard
+            let data = try? Data(contentsOf: assertionsURL),
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            let dataArray = json["data"] as? [[String: Any]],
+            let first = dataArray.first,
+            let records = first["storeAssertionRecords"] as? [[String: Any]]
+        else {
+            return false
+        }
+
+        return !records.isEmpty
     }
 
     private func startTimer() {
