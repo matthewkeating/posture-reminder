@@ -4,6 +4,13 @@ struct MenuBarContentView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
+        let minutes = Int(appState.timeRemaining) / 60
+        let seconds = Int(appState.timeRemaining) % 60
+        Text("Next reminder in \(minutes)m \(String(format: "%02d", seconds))s")
+            .foregroundStyle(.secondary)
+
+        Divider()
+
         Button("Show Reminder") {
             appState.triggerReminder()
         }
