@@ -5,7 +5,7 @@ final class AppState: ObservableObject {
     @Published var interval: Int {
         didSet {
             UserDefaults.standard.set(interval, forKey: "reminderInterval")
-            restartTimer()
+            startTimer()
         }
     }
 
@@ -18,10 +18,6 @@ final class AppState: ObservableObject {
     }
 
     func triggerReminder() {
-        fireReminder()
-    }
-
-    private func fireReminder() {
         if isFocusModeActive() {
             startTimer()
             return
@@ -51,13 +47,10 @@ final class AppState: ObservableObject {
     private func startTimer() {
         timer?.invalidate()
         let t = Timer(timeInterval: TimeInterval(interval * 60), repeats: false) { [weak self] _ in
-            self?.fireReminder()
+            self?.triggerReminder()
         }
         RunLoop.main.add(t, forMode: .common)
         timer = t
     }
 
-    private func restartTimer() {
-        startTimer()
-    }
 }
