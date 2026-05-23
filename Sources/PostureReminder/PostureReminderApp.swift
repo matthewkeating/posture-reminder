@@ -11,6 +11,6 @@ struct PostureReminderApp: App {
         } label: {
             Image(systemName: "arrow.up.circle")
         }
-        .menuBarExtraStyle(.menu)
+        .menuBarExtraStyle(.window)
     }
 }
