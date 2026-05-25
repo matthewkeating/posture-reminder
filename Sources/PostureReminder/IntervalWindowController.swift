@@ -9,8 +9,8 @@ final class IntervalWindowController: NSObject, NSWindowDelegate {
     func show(appState: AppState) {
         if let w = window {
             w.center()
-            NSApp.activate()
-            NSApp.runModal(for: w)
+            NSApp.activate(ignoringOtherApps: true)
+            w.makeKeyAndOrderFront(nil)
             return
         }
 
@@ -27,12 +27,11 @@ final class IntervalWindowController: NSObject, NSWindowDelegate {
         w.center()
 
         window = w
-        NSApp.activate()
-        NSApp.runModal(for: w)
+        NSApp.activate(ignoringOtherApps: true)
+        w.makeKeyAndOrderFront(nil)
     }
 
     func hide() {
-        NSApp.stopModal()
         window?.orderOut(nil)
     }
 

@@ -21,7 +21,7 @@ struct MenuBarContentView: View {
                 .padding(.vertical, 5)
 
             MenuButton("Show Reminder") { appState.triggerReminder() }
-            MenuButton("Pause Reminder") { appState.triggerReminder() }
+            // MenuButton("Pause Reminder") { appState.triggerReminder() }
 
             Divider()
                 .padding(.horizontal, 16)
