@@ -9,9 +9,8 @@ final class AppState: ObservableObject {
         }
     }
 
-    @Published private(set) var timeRemaining: TimeInterval = 0
+    var timerFireDate: Date { timer?.fireDate ?? .now }
     private var timer: Timer?
-    private var displayTimer: Timer?
 
     init() {
         let saved = UserDefaults.standard.integer(forKey: "reminderInterval")
@@ -48,21 +47,11 @@ final class AppState: ObservableObject {
 
     private func startTimer() {
         timer?.invalidate()
-        displayTimer?.invalidate()
-        timeRemaining = TimeInterval(interval * 60)
-
         let t = Timer(timeInterval: TimeInterval(interval * 60), repeats: false) { [weak self] _ in
             self?.triggerReminder()
         }
         RunLoop.main.add(t, forMode: .common)
         timer = t
-
-        let d = Timer(timeInterval: 1, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            self.timeRemaining = max(0, self.timer?.fireDate.timeIntervalSinceNow ?? 0)
-        }
-        RunLoop.main.add(d, forMode: .common)
-        displayTimer = d
     }
 
 }
